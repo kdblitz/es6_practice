@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <head>
+  <link rel="stylesheet" href="/bower_components/bootstrap-ocean-latest/css/bootstrapOcean.css">
+  <link rel="stylesheet" href="/bower_components/material-design-lite/material.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="/main.css">
-  <script src="/bower_components/lodash/lodash.js"></script>
-  <script src="/node_modules/babel-core/browser.js"></script>
-  <script src="/node_modules/babel-core/browser-polyfill.js"></script>
-  <!-- <script src="/bower_components/jquery/dist/jquery.js"></script> -->
-  <script src="http://maps.googleapis.com/maps/api/js"></script>
-  <script type="text/babel" src="/maps.js"></script>
 </head>
 <body>
   <!-- <h1>Lodash loaded</h1> -->
-  <div id="maps"></div>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer">
+    <div class="mdl-layout__drawer">
+      <span class="mdl-layout-title">
+        <i class="material-icons">place</i>ES6 Maps</span>
+      <nav class="markerListView mdl-navigation" hook="markerListView">
+        <li class="mdl-navigation__link" href="">Link</li>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div id="maps"></div>
+    </main>
+  </div>
+    <script src="/bower_components/lodash/lodash.js"></script>
+    <script src="/node_modules/babel-core/browser.js"></script>
+    <script src="/node_modules/babel-core/browser-polyfill.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script src="/bower_components/material-design-lite/material.min.js"></script>
+    <!-- <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular-aria/angular-aria.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.js"></script>
+    <script src="/bower_components/angular-material/angular-material.js"></script>
+    <script type="text/babel" src="/mapAngular.js"></script> -->
+    <script type="text/babel" src="/maps.js"></script>
+  </div>
 </body>

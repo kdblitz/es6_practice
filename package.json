@@ -1,7 +1,7 @@
 {
   "name": "es6_practice",
   "version": "0.0.0",
-  "private":true,
+  "private": true,
   "description": "",
   "main": "maps.js",
   "directories": {
@@ -10,7 +10,11 @@
   "dependencies": {
     "babel-core": "~5.x.x"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel": "^6.0.15",
+    "jshint": "^2.8.0",
+    "webpack": "^1.12.2"
+  },
   "scripts": {
     "postinstall": "bower install",
     "test": "echo \"Error: no test specified\" && exit 1"

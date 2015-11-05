@@ -9,8 +9,7 @@ var PATHS = {
 module.exports = {
   content: PATHS.js,
   entry: {
-    // app: ['./core/bootstrap.js']
-    app: ['./maps.js']
+    app: ['./js/maps.js']
   },
   output: {
     path: PATHS.js,
@@ -20,13 +19,16 @@ module.exports = {
     loaders: [
       {
         test:/\.js$/,
-        loader:'babel!jshint',
+        loader:'babel?presets[]=es2015!semistandard',
         exclude:/node_modules|bower_components/
       }
     ]
   },
+  standard: {
+    parser: 'babel-eslint'
+  },
   devtool: 'source-map',
-  // plugins: [
-  //   new webpack.OldWatchingPlugin()
-  // ]
+  plugins: [
+    new webpack.OldWatchingPlugin()
+  ]
 }

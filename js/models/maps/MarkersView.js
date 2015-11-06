@@ -1,7 +1,6 @@
 export default class MarkersView {
-  constructor(mapView) {
-    this.mapView = mapView;
-    mapView.subscribe(this);
+  constructor(markerList) {
+    this.markerList = markerList;
   }
 
   createListItemAngularMaterial() {
@@ -41,21 +40,21 @@ export default class MarkersView {
     $list.className = 'mdl-navigation__link';
 
     let $button = document.createElement('button');
-    $button.className = 'mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab pull-right';
-    // let $icon = document.createElement('i');
-    // $icon.className = 'material-icons';
-    // $icon.innerHTML = 'clear';
-    // $button.appendChild($icon);
+    $button.className = 'mdl-button mdl-js-button pull-right mdl-js-ripple-effect';
+    let $icon = document.createElement('i');
+    $icon.className = 'material-icons';
+    $icon.innerHTML = 'clear';
+    $button.appendChild($icon);
 
     $list.appendChild(document.createTextNode(marker.description));
-    // $list.appendChild($button);
+    $list.appendChild($button);
     return $list;
   }
 
   regenerateList() {
     let markerList = document.querySelector('[hook="markerListView"]');
     markerList.innerHTML = '';
-    for (let marker of this.mapView.markerList) {
+    for (let marker of this.markerList.markers.values()) {
       markerList.appendChild(this.createListItemMdl(marker));
     }
   }

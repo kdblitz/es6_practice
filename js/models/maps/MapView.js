@@ -1,10 +1,10 @@
 import Marker from './Marker';
+import MarkerList from './MarkerList';
 
 export default class MapView {
-  constructor (targetId) {
+  constructor (targetId, markerList) {
     this.targetId = targetId;
-    this.markerList = [];
-    this.listeners = [];
+    this.markerList = markerList;
   }
   initMap ({lat=13, lng=122, zoom=6} = {}) {
     this.mapObj = new google.maps.Map(document.querySelector(`#${this.targetId}`), {
@@ -21,15 +21,7 @@ export default class MapView {
 
   addListener() {
     this.map.addListener('click',ev => {
-      this.markerList.push(new Marker(this.map, ev.latLng));
-      for (let listener of this.listeners) {
-        listener.notify();
-      }
+      this.markerList.addMarker(new Marker(this.map, ev.latLng));
     });
-
-   }
-
-  subscribe(listener) {
-    this.listeners.push(listener);
   }
 }

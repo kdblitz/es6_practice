@@ -7,7 +7,7 @@ class InfoWindow {
     this.info = new google.maps.InfoWindow({
       content:`<div id="${this.id}"></div>`
     });
-    // this.viewMode();
+    this.changeListeners = new Set();
   }
 
   getDom() {
@@ -46,6 +46,7 @@ class InfoWindow {
     $saveButton.innerHTML = 'Save';
     $saveButton.addEventListener('click',(()=> {
       this.content = $input.value;
+      this.notify();
       this.viewMode();
     }).bind(this));
 
@@ -53,9 +54,14 @@ class InfoWindow {
     $info.appendChild($saveButton);
   }
 
-  save() {
-    let $info = this.getDom();
-    console.log($info.querySelector('input').value);
+  addChangeListener(listener) {
+    this.changeListeners.add(listener);
+  }
+
+  notify() {
+    for (let listener of this.changeListeners.values()) {
+      listener.notify();
+    }
   }
 }
 
@@ -67,15 +73,30 @@ export default class Marker {
       title:description
     });
     this.infoWindow = new InfoWindow(description);
-    this.addListener();
+    this.infoWindow.addChangeListener(this);
+    this.addEventListeners();
     this.map = map;
-    this.description = description;
+    this.changeListeners = new Set();
   }
 
-  addListener() {
+  addEventListeners() {
     this.marker.addListener('click', () => {
       this.infoWindow.info.open(this.map, this.marker);
       this.infoWindow.viewMode();
     });
+  }
+
+  get description() {
+    return this.infoWindow.content;
+  }
+
+  addChangeListener(listener) {
+    this.changeListeners.add(listener);
+  }
+
+  notify() {
+    for (let listener of this.changeListeners.values()) {
+      listener.notify();
+    }
   }
 }

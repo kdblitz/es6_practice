@@ -12,3 +12,4 @@ markerList.addChangeListener(markersView);
 markersView.regenerateList();
 
 const markerStorage = new MarkerLocalStorage();
+kmap.loadData(markerStorage.loadData());

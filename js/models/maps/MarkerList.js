@@ -1,19 +1,24 @@
+import MarkerLocalStorage from 'models/persistence/MarkerLocalStorage';
+
+let storage = new MarkerLocalStorage();
+
 export default class MarkerList {
-  constructor() {
+  constructor(lclstorage = storage) {
+    this.storage = storage;
     this.markers = new Set();
     this.changeListeners = new Set();
   }
 
   saveData() {
-    console.log(
-      JSON.stringify([...this.markers].map( (marker)=>marker.marker.position )
-        .map(position => {return{lng:position.lng(), lat:position.lat()}}))
-    );
-    // console.log(this.markers.map( (marker)=> {
-    //   return marker;
-    //   // return {lat: marker.marker.position.lat(),
-    //   // lng: marker.marker.position.lng()};
-    // });
+    let markers = [...this.markers].map( (marker) => {
+      let position = marker.marker.position;
+      return {
+        description: marker.infoWindow.content,
+        lng : position.lng(),
+        lat : position.lat()
+      }
+    } );
+    this.storage.saveData(markers);
   }
 
   addChangeListener(listener) {
@@ -25,17 +30,16 @@ export default class MarkerList {
     marker.setRemoveEvent(this.removeMarker.bind(this));
 
     this.markers.add(marker);
-    this.saveData();
     this.notify();
   }
 
   removeMarker(marker) {
-    console.log(this, this.markers, marker)
     this.markers.delete(marker);
     this.notify();
   }
 
   notify() {
+    this.saveData();
     for (let listener of this.changeListeners.values()) {
       listener.notify();
     }

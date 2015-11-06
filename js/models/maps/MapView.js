@@ -24,4 +24,10 @@ export default class MapView {
       this.markerList.addMarker(new Marker(this.map, ev.latLng));
     });
   }
+
+  loadData(loadedMarkers) {
+    for (let marker of loadedMarkers) {
+      this.markerList.addMarker(new Marker(this.map,{lat:marker.lat,lng:marker.lng},marker.description));
+    }
+  }
 }

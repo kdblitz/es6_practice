@@ -1,6 +1,5 @@
-import ColorGenerator from './generators/ColorGenerator';
-import LabelGenerator from './generators/LabelGenerator';
-
+import ColorGenerator from 'models/generators/ColorGenerator';
+import LabelGenerator from 'models/generators/LabelGenerator';
 class InfoWindow {
   constructor(content) {
     this.id = _.uniqueId('InfoWindow')
@@ -34,7 +33,29 @@ class InfoWindow {
   }
 
   editMode() {
-    this.getDom().innerHTML = `<input type="text" value="${this.content}">`;
+    let $info = this.getDom();
+    $info.innerHTML = '';
+
+    let $input = document.createElement('input');
+    $input.type = 'text';
+    $input.className = 'form-control';
+    $input.value = this.content;
+
+    let $saveButton = document.createElement('button');
+    $saveButton.className = 'btn btn-primary';
+    $saveButton.innerHTML = 'Save';
+    $saveButton.addEventListener('click',(()=> {
+      this.content = $input.value;
+      this.viewMode();
+    }).bind(this));
+
+    $info.appendChild($input);
+    $info.appendChild($saveButton);
+  }
+
+  save() {
+    let $info = this.getDom();
+    console.log($info.querySelector('input').value);
   }
 }
 

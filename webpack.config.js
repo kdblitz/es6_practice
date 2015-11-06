@@ -7,13 +7,17 @@ var PATHS = {
 }
 
 module.exports = {
-  content: PATHS.js,
+  context: PATHS.js,
   entry: {
-    app: ['./js/maps.js']
+    app: ['./maps.js']
   },
   output: {
     path: PATHS.js,
     filename: 'bundle.js'
+  },
+  resolve: {
+    root: PATHS.js,
+    extensions: ['','.js']
   },
   module: {
     loaders: [

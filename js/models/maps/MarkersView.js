@@ -45,6 +45,9 @@ export default class MarkersView {
     $icon.className = 'material-icons';
     $icon.innerHTML = 'clear';
     $button.appendChild($icon);
+    $button.addEventListener('click', () => {
+      marker.remove();
+    });
 
     $list.appendChild(document.createTextNode(marker.description));
     $list.appendChild($button);

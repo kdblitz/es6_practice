@@ -26,7 +26,7 @@ class InfoWindow {
     $editButton.innerHTML = 'Edit me';
     $editButton.addEventListener('click', (() => {
       this.editMode();
-    }).bind(this) )
+    }).bind(this) );
 
     $info.appendChild($label);
     $info.appendChild($editButton);
@@ -92,6 +92,15 @@ export default class Marker {
 
   addChangeListener(listener) {
     this.changeListeners.add(listener);
+  }
+
+  setRemoveEvent(evt) {
+    this.removeEvent = evt;
+  }
+
+  remove() {
+    this.removeEvent(this);
+    this.marker.setMap(null);
   }
 
   notify() {

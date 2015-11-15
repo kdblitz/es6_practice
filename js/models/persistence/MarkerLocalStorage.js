@@ -1,9 +1,9 @@
 export default class MarkerLocalStorage {
-  loadData() {
+  loadData () {
     return (localStorage['markers']) ? JSON.parse(localStorage['markers']) : [];
   }
 
-  saveData(data) {
+  saveData (data) {
     localStorage['markers'] = JSON.stringify(data);
   }
 }

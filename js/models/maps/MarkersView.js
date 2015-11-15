@@ -1,12 +1,12 @@
 export default class MarkersView {
-  constructor(markerList) {
+  constructor (markerList) {
     this.markerList = markerList;
   }
 
-  createListItemAngularMaterial() {
+  createListItemAngularMaterial () {
     let $list = document.createElement('md-list-item');
     let $div = document.createElement('div');
-    $div.className = "md-list-item-text";
+    $div.className = 'md-list-item-text';
 
     let $label = document.createElement('h3');
     $label.innerHTML = ':D';
@@ -20,7 +20,7 @@ export default class MarkersView {
     return $list;
   }
 
-  createListItemBootstrap() {
+  createListItemBootstrap () {
     let $list = document.createElement('div');
     $list.className = 'list-group-item';
 
@@ -35,7 +35,7 @@ export default class MarkersView {
     return $list;
   }
 
-  createListItemMdl(marker) {
+  createListItemMdl (marker) {
     let $list = document.createElement('li');
     $list.className = 'mdl-navigation__link';
 
@@ -54,7 +54,7 @@ export default class MarkersView {
     return $list;
   }
 
-  regenerateList() {
+  regenerateList () {
     let markerList = document.querySelector('[hook="markerListView"]');
     markerList.innerHTML = '';
     for (let marker of this.markerList.markers.values()) {
@@ -62,7 +62,7 @@ export default class MarkersView {
     }
   }
 
-  notify() {
+  notify () {
     this.regenerateList();
   }
 }

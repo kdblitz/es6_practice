@@ -3,7 +3,8 @@ var webpack = require('webpack');
 var path = require('path');
 
 var PATHS = {
-  js: path.join(__dirname, 'js')
+  js: path.join(__dirname, 'js'),
+  bower: path.join(__dirname,'bower_components')
 }
 
 module.exports = {
@@ -16,8 +17,11 @@ module.exports = {
     filename: 'bundle.js'
   },
   resolve: {
-    root: PATHS.js,
-    extensions: ['','.js']
+    root: [PATHS.js,PATHS.bower],
+    extensions: ['','.js'],
+    alias: {
+      lodash: 'lodash/lodash'
+    }
   },
   module: {
     loaders: [
@@ -29,10 +33,19 @@ module.exports = {
     ]
   },
   standard: {
-    parser: 'babel-eslint'
   },
+  semistandard: {
+    globals: ['_','google','localStorage']
+  },
+
+
   devtool: 'source-map',
   plugins: [
-    new webpack.OldWatchingPlugin()
+    new webpack.ProvidePlugin({
+      _:'lodash'
+    }),
+    new webpack.ResolverPlugin(
+      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin("bower.json", ['main'])
+    )
   ]
 }

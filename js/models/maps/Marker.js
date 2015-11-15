@@ -1,21 +1,21 @@
 import ColorGenerator from 'models/generators/ColorGenerator';
 import LabelGenerator from 'models/generators/LabelGenerator';
 class InfoWindow {
-  constructor(content) {
-    this.id = _.uniqueId('InfoWindow')
+  constructor (content) {
+    this.id = _.uniqueId('InfoWindow');
     this.content = content;
     this.info = new google.maps.InfoWindow({
-      content:`<div id="${this.id}"></div>`
+      content: `<div id="${this.id}"></div>`
     });
     this.changeListeners = new Set();
   }
 
-  getDom() {
+  getDom () {
     return document.querySelector(`#${this.id}`);
   }
 
-  viewMode() {
-    let $info = this.getDom()
+  viewMode () {
+    let $info = this.getDom();
     $info.innerHTML = '';
 
     let $label = document.createElement('h3');
@@ -24,15 +24,15 @@ class InfoWindow {
 
     let $editButton = document.createElement('button');
     $editButton.innerHTML = 'Edit me';
-    $editButton.addEventListener('click', (() => {
+    $editButton.addEventListener('click', () => {
       this.editMode();
-    }).bind(this) );
+    });
 
     $info.appendChild($label);
     $info.appendChild($editButton);
   }
 
-  editMode() {
+  editMode () {
     let $info = this.getDom();
     $info.innerHTML = '';
 
@@ -44,21 +44,21 @@ class InfoWindow {
     let $saveButton = document.createElement('button');
     $saveButton.className = 'btn btn-primary';
     $saveButton.innerHTML = 'Save';
-    $saveButton.addEventListener('click',(()=> {
+    $saveButton.addEventListener('click', () => {
       this.content = $input.value;
       this.notify();
       this.viewMode();
-    }).bind(this));
+    });
 
     $info.appendChild($input);
     $info.appendChild($saveButton);
   }
 
-  addChangeListener(listener) {
+  addChangeListener (listener) {
     this.changeListeners.add(listener);
   }
 
-  notify() {
+  notify () {
     for (let listener of this.changeListeners.values()) {
       listener.notify();
     }
@@ -70,7 +70,7 @@ export default class Marker {
     this.marker = new google.maps.Marker({
       position: latLng,
       map,
-      title:description
+      title: description
     });
     this.infoWindow = new InfoWindow(description);
     this.infoWindow.addChangeListener(this);
@@ -79,31 +79,31 @@ export default class Marker {
     this.changeListeners = new Set();
   }
 
-  addEventListeners() {
+  addEventListeners () {
     this.marker.addListener('click', () => {
       this.infoWindow.info.open(this.map, this.marker);
       this.infoWindow.viewMode();
     });
   }
 
-  get description() {
+  get description () {
     return this.infoWindow.content;
   }
 
-  addChangeListener(listener) {
+  addChangeListener (listener) {
     this.changeListeners.add(listener);
   }
 
-  setRemoveEvent(evt) {
+  setRemoveEvent (evt) {
     this.removeEvent = evt;
   }
 
-  remove() {
+  remove () {
     this.removeEvent(this);
     this.marker.setMap(null);
   }
 
-  notify() {
+  notify () {
     for (let listener of this.changeListeners.values()) {
       listener.notify();
     }

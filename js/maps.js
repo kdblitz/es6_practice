@@ -1,4 +1,5 @@
 'use strict';
+import '../main.less';
 import 'babel-polyfill';
 import MapView from 'models/maps/MapView';
 import MarkersView from 'models/maps/MarkersView';

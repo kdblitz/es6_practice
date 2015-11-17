@@ -29,6 +29,10 @@ module.exports = {
         test:/\.js$/,
         loader:'babel?presets[]=es2015!semistandard',
         exclude:/node_modules|bower_components/
+      },
+      {
+        test:/\.less$/,
+        loader:'style!css!less'
       }
     ]
   },
